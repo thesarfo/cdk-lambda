@@ -1,18 +1,32 @@
-# Welcome to your CDK Java project!
+This project demonstrates an event-driven architecture on AWS using AWS CDK. It triggers an AWS Lambda function in response to an S3 `PutObject` event, which then sends an email notification through Amazon SNS.
 
-This is a blank project for CDK development with Java.
+### Architecture Overview
+- **S3 Bucket**: Stores files, triggers Lambda on `PutObject` event.
+- **Lambda**: Executes logic upon file upload and sends an email.
+- **SNS**: Sends an email notification to subscribed email addresses.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The CDK stack itself is written in Java(17) but the lambda function is written in Javascript(Node 20 Runtime).
 
-It is a [Maven](https://maven.apache.org/) based project, so you can open this project with any Maven compatible Java IDE to build and run tests.
+---
 
-## Useful commands
+Just head over to the `lambda` directory, run `npm install` - and then you can edit unique parameters in the stack(like emails) to your liking.
 
- * `mvn package`     compile and run tests
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
 
-Enjoy!
+Then, from the root of the project, run:
+
+```bash
+cdk deploy
+```
+
+This command will deploy the CloudFormation stack with all the resources defined in the CDK application, including:
+
+- An S3 bucket
+- A Lambda function
+- An SNS topic and subscription (email)
+
+
+If you no longer need the resources, you can clean up by destroying the stack:
+
+```bash
+cdk destroy
+```
